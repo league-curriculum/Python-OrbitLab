@@ -7,7 +7,7 @@ pygame.init()
 # Constants
 SCREEN_WIDTH, SCREEN_HEIGHT = 600, 600
 d_T = 1 # timestep (delta time)
-G = .005
+G = .5
 
 # Set up the display
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -58,18 +58,23 @@ class Planet(CelestialBody):
         self.vel = pygame.Vector2(*velocity) if isinstance(velocity, tuple) else velocity
 
 
+    def force_vec_due_to(self, other: CelestialBody) -> pygame.Vector2:
+        """Calculate the gravitational force exerted by another celestial body on this planet."""
         
+        # Distance squared between the two bodies
+        r2 = self.pos.distance_squared_to(other.pos)
+
+        # Gravitational force magnitude
+        f_g = (G * self.mass * other.mass) / r2 if r2 != 0 else 0
+
+        # Force vector pointing towards the other body
+        f = (other.pos - self.pos).normalize() * f_g
+
+        return f
 
     def update(self):
-
-        # squared distance to the sun. 
-        r2 = self.pos.distance_squared_to(self.sun.pos)
-
-        # Force of gravity to the sun
-        f_g = (G * self.mass * self.sun.mass) / r2
-
-        # Calculate the force vector pointing towards the sun
-        f =  (self.sun.pos - self.pos) * f_g
+        
+        f = self.force_vec_due_to(self.sun)
 
         # Acceleration of the planet
         a = f / self.mass

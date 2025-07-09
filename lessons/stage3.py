@@ -314,7 +314,7 @@ def create_demo_system():
     )
     
     earth = Planet(
-        mass=M_EARTH, 
+        mass=M_EARTH * 10, 
         color=BLUE, 
         radius=8, 
         name="Earth",
@@ -324,18 +324,16 @@ def create_demo_system():
     )
     
 
-    
-    # Create 100 random asteroids
     asteroids = []
     for i in range(1000):
         # Random orbital properties
         distance = np.random.uniform(1.1, 2.0) * AU  # Between 1.5 and 3.0 AU (asteroid belt)
-        ecc =np.random.uniform(0.0, 0.9)  # Eccentricity between 0 and 0.5
-        inclination = np.random.uniform(0.0, 0.3)  # Inclination up to 0.3 radians (~17 degrees)
+        ecc =np.random.uniform(0.0, 0.9)  
+        inclination = 0 # np.random.uniform(0.0, 0.3)  # Inclination up to 0.3 radians (~17 degrees)
         
         # Random physical properties
-        size = np.random.uniform(1, 4)  # Visual size between 1-3 pixels
-        mass = np.random.uniform(1e12, 1e16)  # Mass between 10^12 and 10^16 kg
+        size = 2 # np.random.uniform(1, 4)  # Visual size between 1-3 pixels
+        mass = np.random.uniform(1e10, 1e16)  # Mass between 10^12 and 10^16 kg
 
         # Random color variation (shades of gray to white)
         gray_shade = np.random.randint(150, 255)

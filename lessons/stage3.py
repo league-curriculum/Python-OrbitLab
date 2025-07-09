@@ -43,6 +43,18 @@ class CelestialBody:
         self.color = color
         self.radius = radius
         self.name = name
+        self.trail = []
+        self.max_trail_length = 200
+    
+    def add_trail_point(self, pos: tuple):
+        """Add a point to the trail and manage trail length."""
+        self.trail.append(pos)
+        if len(self.trail) > self.max_trail_length:
+            self.trail.pop(0)
+    
+    def get_trail(self) -> list:
+        """Get the current trail points."""
+        return self.trail
 
 class Star(CelestialBody):
     """Represents a star (fixed at origin)."""
@@ -169,10 +181,6 @@ class SolarSystemSimulation:
                 "name": body.name
             })
         
-        # For trail visualization
-        self.trails = [[] for _ in range(len(self.body_props))]
-        self.max_trail_length = 200
-        
     def screen_pos(self, x, y):
         """Convert simulation coordinates to screen coordinates"""
         screen_x = int(x * SCALE * ZOOM_FACTOR + SCREEN_WIDTH // 2)
@@ -183,14 +191,34 @@ class SolarSystemSimulation:
         """Advance the simulation by one time step"""
         self.sim.integrate(self.sim.t + self.sim.dt)
         
+        # Remove objects that are more than 5 AU from the star
+        self.remove_distant_objects()
+        
         # Update trails
         for i, particle in enumerate(self.sim.particles):
             pos = self.screen_pos(particle.x, particle.y)
-            self.trails[i].append(pos)
+            if i < len(self.bodies):
+                self.bodies[i].add_trail_point(pos)
+    
+    def remove_distant_objects(self):
+        """Remove objects that are more than 5 AU from the central star"""
+        MAX_DISTANCE = 5.0 * AU
+        
+        # Check particles in reverse order to avoid index issues when removing
+        for i in range(len(self.sim.particles) - 1, 0, -1):  # Skip index 0 (central star)
+            particle = self.sim.particles[i]
+            distance = math.sqrt(particle.x**2 + particle.y**2 + particle.z**2)
             
-            # Limit trail length
-            if len(self.trails[i]) > self.max_trail_length:
-                self.trails[i].pop(0)
+            if distance > MAX_DISTANCE:
+                # Remove from simulation
+                self.sim.remove(i)
+                
+                # Remove corresponding entries from our tracking lists
+                if i < len(self.bodies):
+                    self.bodies.pop(i)
+                if i < len(self.body_props):
+                    self.body_props.pop(i)
+
     
     def draw(self, screen):
         """Draw the simulation on the screen"""
@@ -198,14 +226,16 @@ class SolarSystemSimulation:
         screen.fill(BLACK)
         
         # Draw trails
-        for i, trail in enumerate(self.trails):
-            if len(trail) > 1:
-                # Draw trail with fading effect
-                for j in range(1, len(trail)):
-                    alpha = j / len(trail)
-                    color = tuple(int(c * alpha) for c in self.body_props[i]["color"])
-                    if j < len(trail) - 1:
-                        pygame.draw.line(screen, color, trail[j-1], trail[j], 1)
+        for i, body in enumerate(self.bodies):
+            if i < len(self.sim.particles):
+                trail = body.get_trail()
+                if len(trail) > 1:
+                    # Draw trail with fading effect
+                    for j in range(1, len(trail)):
+                        alpha = j / len(trail)
+                        color = tuple(int(c * alpha) for c in body.color)
+                        if j < len(trail) - 1:
+                            pygame.draw.line(screen, color, trail[j-1], trail[j], 1)
         
         # Draw bodies
         for i, particle in enumerate(self.sim.particles):
@@ -284,7 +314,7 @@ def create_demo_system():
     )
     
     earth = Planet(
-        mass=M_EARTH*50_000, 
+        mass=M_EARTH, 
         color=BLUE, 
         radius=8, 
         name="Earth",
@@ -300,13 +330,13 @@ def create_demo_system():
     for i in range(1000):
         # Random orbital properties
         distance = np.random.uniform(1.1, 2.0) * AU  # Between 1.5 and 3.0 AU (asteroid belt)
-        ecc = np.random.uniform(0.0, 0.9)  # Eccentricity between 0 and 0.5
+        ecc =np.random.uniform(0.0, 0.9)  # Eccentricity between 0 and 0.5
         inclination = np.random.uniform(0.0, 0.3)  # Inclination up to 0.3 radians (~17 degrees)
         
         # Random physical properties
         size = np.random.uniform(1, 4)  # Visual size between 1-3 pixels
         mass = np.random.uniform(1e12, 1e16)  # Mass between 10^12 and 10^16 kg
-        
+
         # Random color variation (shades of gray to white)
         gray_shade = np.random.randint(150, 255)
         color = (gray_shade, gray_shade, gray_shade)

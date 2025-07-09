@@ -43,18 +43,20 @@ class CelestialBody:
         self.color = color
         self.radius = radius
         self.name = name
-        self.trail = []
-        self.max_trail_length = 200
-    
-    def add_trail_point(self, pos: tuple):
-        """Add a point to the trail and manage trail length."""
-        self.trail.append(pos)
-        if len(self.trail) > self.max_trail_length:
-            self.trail.pop(0)
+        self.trail = []  # List of (position, timestamp) tuples
+        self.max_trail_time = 365 * 24 * 3600  / 2
+
+    def add_trail_point(self, pos: tuple, timestamp: float):
+        """Add a point to the trail with timestamp and manage trail length by time."""
+        self.trail.append((pos, timestamp))
+        
+        # Remove old trail points based on time
+        cutoff_time = timestamp - self.max_trail_time
+        self.trail = [(p, t) for p, t in self.trail if t >= cutoff_time]
     
     def get_trail(self) -> list:
-        """Get the current trail points."""
-        return self.trail
+        """Get the current trail positions only."""
+        return [pos for pos, timestamp in self.trail]
 
 class Star(CelestialBody):
     """Represents a star (fixed at origin)."""
@@ -112,6 +114,18 @@ class Planet(CelestialBody):
             vx = 0
             vy = self.get_initial_velocity(central_mass)
         
+        # Rotate the x, y position around the central body, randomly
+        angle = np.random.uniform(0, 2 * math.pi)
+        pos = pygame.Vector2(x, y)
+        rotated_pos = pos.rotate_rad(angle)
+        x, y = rotated_pos.x, rotated_pos.y
+
+        # Also rotate the velocity vector
+        vel = pygame.Vector2(vx, vy)
+        rotated_vel = vel.rotate_rad(angle)
+        vx, vy = rotated_vel.x, rotated_vel.y
+
+
         # Add inclination if specified
         if self.inclination != 0:
             z = y * math.sin(self.inclination)
@@ -194,11 +208,11 @@ class SolarSystemSimulation:
         # Remove objects that are more than 5 AU from the star
         self.remove_distant_objects()
         
-        # Update trails
+        # Update trails with current simulation time
         for i, particle in enumerate(self.sim.particles):
             pos = self.screen_pos(particle.x, particle.y)
             if i < len(self.bodies):
-                self.bodies[i].add_trail_point(pos)
+                self.bodies[i].add_trail_point(pos, self.sim.t)
     
     def remove_distant_objects(self):
         """Remove objects that are more than 5 AU from the central star"""
@@ -314,7 +328,7 @@ def create_demo_system():
     )
     
     earth = Planet(
-        mass=M_EARTH * 10, 
+        mass=M_EARTH * 10_000, 
         color=BLUE, 
         radius=8, 
         name="Earth",
@@ -325,7 +339,7 @@ def create_demo_system():
     
 
     asteroids = []
-    for i in range(1000):
+    for i in range(5000):
         # Random orbital properties
         distance = np.random.uniform(1.1, 2.0) * AU  # Between 1.5 and 3.0 AU (asteroid belt)
         ecc =np.random.uniform(0.0, 0.9)  
@@ -333,7 +347,7 @@ def create_demo_system():
         
         # Random physical properties
         size = 2 # np.random.uniform(1, 4)  # Visual size between 1-3 pixels
-        mass = np.random.uniform(1e10, 1e16)  # Mass between 10^12 and 10^16 kg
+        mass = np.random.uniform(1e8, 1e17)  # Mass between 10^9 and 10^17 kg
 
         # Random color variation (shades of gray to white)
         gray_shade = np.random.randint(150, 255)

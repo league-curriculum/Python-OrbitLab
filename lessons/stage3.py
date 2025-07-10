@@ -29,12 +29,16 @@ M_SUN = 1.989e30  # Solar mass in kg
 M_EARTH = 5.972e24  # Earth mass in kg
 M_MERCURY = 3.301e23  # Mercury mass in kg
 M_VENUS = 4.867e24  # Venus mass in kg
+M_MARS = 6.4171e23  # Mars mass in kg
+M_JUPITER = 1.898e27  # Jupiter mass in kg
 G_SI = 6.67430e-11  # Gravitational constant in SI units
 
 # Scaling factors for visualization
-SCALE = 200 / AU  # pixels per meter (200 pixels = 1 AU)
+SCALE = 50 / AU  # pixels per meter (200 pixels = 1 AU)
 TIME_SCALE = 24 * 3600  # 1 frame = 1 day in seconds
 ZOOM_FACTOR = 1.0  # Global zoom factor
+
+MAX_DISTANCE = 7.0 * AU  # Maximum distance from the central star to keep objects
 
 class CelestialBody:
     """Base class for all celestial bodies."""
@@ -216,7 +220,7 @@ class SolarSystemSimulation:
     
     def remove_distant_objects(self):
         """Remove objects that are more than 5 AU from the central star"""
-        MAX_DISTANCE = 5.0 * AU
+        
         
         # Check particles in reverse order to avoid index issues when removing
         for i in range(len(self.sim.particles) - 1, 0, -1):  # Skip index 0 (central star)
@@ -304,7 +308,7 @@ def create_demo_system():
     """Create a demonstration system with Mercury, Venus, Earth, and an asteroid."""
     
     # Create the Sun
-    sun = Star(mass=M_SUN, color=YELLOW, radius=20, name="Sun")
+    sun = Star(mass=M_SUN, color=YELLOW, radius=10, name="Sun")
     
     # Create planets with realistic orbital parameters
     mercury = Planet(
@@ -327,8 +331,18 @@ def create_demo_system():
         eccentricity=0.0
     )
     
+    mars = Planet(  
+        mass=M_MARS, 
+        color=(255, 0, 0),  # Red color for Mars
+        radius=5, 
+        name="Mars",
+        orbital_distance=1.524 * AU,  # 1.524 AU from Sun
+        orbital_velocity=math.sqrt(G_SI * M_SUN / (1.524 * AU)),
+        eccentricity=0.0934  # Mars' eccentricity
+    )   
+
     earth = Planet(
-        mass=M_EARTH * 10_000, 
+        mass=M_EARTH , 
         color=BLUE, 
         radius=8, 
         name="Earth",
@@ -336,17 +350,29 @@ def create_demo_system():
         orbital_velocity=math.sqrt(G_SI * M_SUN / AU),
         eccentricity=0.0
     )
+
+
     
+    jupiter = Planet(
+        mass=M_JUPITER,  # Jupiter mass in kg
+        color=(255, 165, 0),  # Orange color for Jupiter
+        radius=12,  # Visual size
+        name="Jupiter",
+        orbital_distance=5.2 * AU,  # 5.2 AU from Sun
+        orbital_velocity=math.sqrt(G_SI * M_SUN / (5.2 * AU)),
+        eccentricity=0.0489  # Jupiter's eccentricity
+    )
+
 
     asteroids = []
-    for i in range(5000):
+    for i in range(1000):
         # Random orbital properties
-        distance = np.random.uniform(1.1, 2.0) * AU  # Between 1.5 and 3.0 AU (asteroid belt)
+        distance = np.random.uniform(.7, 7.0) * AU  # Between 1.1 and 7.0 AU (asteroid belt)
         ecc =np.random.uniform(0.0, 0.9)  
         inclination = 0 # np.random.uniform(0.0, 0.3)  # Inclination up to 0.3 radians (~17 degrees)
         
         # Random physical properties
-        size = 2 # np.random.uniform(1, 4)  # Visual size between 1-3 pixels
+        size = 2 # np.random.uniform(1, 4)  # Visual si`ze between 1-3 pixels
         mass = np.random.uniform(1e8, 1e17)  # Mass between 10^9 and 10^17 kg
 
         # Random color variation (shades of gray to white)
@@ -367,7 +393,7 @@ def create_demo_system():
         
         asteroids.append(new_asteroid)
 
-    return [sun, mercury, venus, earth, *asteroids]
+    return [sun, mercury, venus, earth, mars, jupiter, *asteroids]
 
 # Create the demonstration system
 bodies = create_demo_system()

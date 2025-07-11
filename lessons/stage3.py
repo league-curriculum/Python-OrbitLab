@@ -72,6 +72,7 @@ class Planet(CelestialBody):
     def __init__(self, mass: float, color: tuple, radius: int, name: str, 
                  orbital_distance: float, orbital_velocity: float, 
                  eccentricity: float = 0.0, inclination: float = 0.0):
+        
         super().__init__(mass, color, radius, name)
         self.orbital_distance = orbital_distance
         self.orbital_velocity = orbital_velocity
@@ -148,6 +149,8 @@ class Asteroid(Planet):
                  orbital_distance: float, orbital_velocity: float, 
                  eccentricity: float = 0.0, inclination: float = 0.0):
         super().__init__(mass, color, radius, name, orbital_distance, orbital_velocity, eccentricity, inclination)
+
+
 
 class SolarSystemSimulation:
     def __init__(self, bodies: list[CelestialBody]):
@@ -342,7 +345,7 @@ def create_demo_system():
     )   
 
     earth = Planet(
-        mass=M_EARTH , 
+        mass=M_EARTH * 10_000, 
         color=BLUE, 
         radius=8, 
         name="Earth",
@@ -364,8 +367,10 @@ def create_demo_system():
     )
 
 
+
+
     asteroids = []
-    for i in range(1000):
+    for i in range(10):
         # Random orbital properties
         distance = np.random.uniform(.7, 7.0) * AU  # Between 1.1 and 7.0 AU (asteroid belt)
         ecc =np.random.uniform(0.0, 0.9)  
@@ -392,6 +397,8 @@ def create_demo_system():
         )
         
         asteroids.append(new_asteroid)
+
+
 
     return [sun, mercury, venus, earth, mars, jupiter, *asteroids]
 

@@ -367,10 +367,8 @@ def create_demo_system():
     )
 
 
-
-
     asteroids = []
-    for i in range(10):
+    for i in range(1000):
         # Random orbital properties
         distance = np.random.uniform(.7, 7.0) * AU  # Between 1.1 and 7.0 AU (asteroid belt)
         ecc =np.random.uniform(0.0, 0.9)  
@@ -467,7 +465,7 @@ while running:
         screen.blit(pause_text, (SCREEN_WIDTH - 200, 140))
     
     pygame.display.flip()
-    clock.tick(60)  # 60 FPS
+    clock.tick(200)  # 60 FPS
 
 # Quit Pygame
 pygame.quit()

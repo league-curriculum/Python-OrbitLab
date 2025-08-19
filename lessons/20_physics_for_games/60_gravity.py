@@ -1,5 +1,5 @@
 """
-Implementing Gravity - Object Oriented Version
+Implementing Gravity 
 
 This program demonstrates a simple implementation of gravity in a game,
 with the player constantly jumping. Notice that using gravity makes the player

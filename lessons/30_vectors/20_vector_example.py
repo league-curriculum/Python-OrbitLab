@@ -1,5 +1,5 @@
 """
-Vector Example - Object Oriented Version
+Vector Example
 
 Demonstrates drawing a sequence of vectors on a labeled grid using Vector20.
 This version uses a Settings dataclass, a Simulation class, and follows the

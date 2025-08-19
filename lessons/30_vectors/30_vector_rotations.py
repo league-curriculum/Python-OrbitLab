@@ -1,5 +1,5 @@
 """
-Vector Rotations - Object Oriented Version
+Vector Rotations
 
 Demonstrates rotating and scaling vectors on a labeled grid using Vector20.
 This version uses a Settings dataclass, a Simulation class, and follows the

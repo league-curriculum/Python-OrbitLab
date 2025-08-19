@@ -1,6 +1,5 @@
 """
-Gravity Bounce with X Motion - Object Oriented Version
-
+Gravity Bounce with X Motion 
 If we add X velocity, from side to side, the player will bounce around the
 screen. We will need to add a check to see if the player hits the left or right
 side of the screen.

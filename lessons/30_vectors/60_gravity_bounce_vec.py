@@ -1,7 +1,7 @@
 """
 Gravity Bounce with Vectors
 
-Simulates a ball bouncing under gravity using vectors, following the Python-OrbitLab style guide.
+Simulates a ball bouncing under gravity using vectors.
 
 uid: dos6D9jM
 name: Gravity Bounce Vec

@@ -3,13 +3,13 @@ description: Orbit Lab
 module_dir: ..
 uid: d0f587da-5672-4c83-8a59-0d26494cf274
 modules:
-- name: introduction
+- name: Introduction
   uid: pHtFaT17
   lessons:
   - name: Orbit Lab
     uid: IUh3u37k
     exercise: 10_introduction/10_orbit_lab.ipynb
-- name: physics for games
+- name: Motion and Physics
   uid: QIg0BBOF
   lessons:
   - name: Physics For Games
@@ -39,7 +39,7 @@ modules:
     uid: IaZqWmy2
     exercise: 20_physics_for_games/70_gravity_bounce.py
     display: true
-- name: vectors
+- name: Vectors
   uid: HEJoEQiP
   lessons:
   - name: Vectors
@@ -64,7 +64,7 @@ modules:
     uid: dos6D9jM
     exercise: 30_vectors/60_gravity_bounce_vec.py
     display: true
-- name: firstorbits
+- name: First Orbits
   uid: i1py4Aox
   lessons:
   - name: First Orbits
@@ -85,13 +85,13 @@ modules:
     uid: Xk2FyahV
     exercise: 40_firstorbits/50_gravity.py
     display: true
-- name: integration
+- name: Integration
   uid: eCyjgWmj
   lessons:
   - name: Integration Error
     uid: j5ZS4Cib
     exercise: 50_integration/10_integration_error.ipynb
-- name: nbody
+- name: NBody
   uid: QDfDPKRe
   lessons:
   - name: rebound transition guide

@@ -1,7 +1,7 @@
 """
-Vector Walk - Object Oriented Version
+Vector Walk 
 Demonstrates moving a player using a direction vector, with rotation and scaling,
-displaying vector information. Follows the Python-OrbitLab style guide for structure and naming.
+displaying vector information.
 
 uid: TzQJ6TJl
 name: Vector Walk

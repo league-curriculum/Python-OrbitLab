@@ -3,50 +3,86 @@ description: Orbit Lab
 module_dir: ..
 uid: d0f587da-5672-4c83-8a59-0d26494cf274
 modules:
-- name: Introduction
+- name: introduction
   uid: pHtFaT17
   lessons:
-  - name: Orbit Lab
+  - name: orbit lab
     uid: IUh3u37k
-    exercise: 10_Introduction/10_Orbit_Lab.ipynb
-- name: Physics for Games
+    exercise: 10_introduction/10_orbit_lab.ipynb
+- name: physics for games
   uid: QIg0BBOF
   lessons:
-  - name: Physics for Games
+  - name: physics for games
     uid: UXZGPhKm
-    exercise: 20_Physics_for_Games/10_Physics_for_Games.ipynb
+    exercise: 20_physics_for_games/10_physics_for_games.ipynb
   - name: move
-    exercise: 20_Physics_for_Games/20_move.py
+    exercise: 20_physics_for_games/20_move.py
     display: true
   - name: no acceleration
-    exercise: 20_Physics_for_Games/30_no_acceleration.py
+    exercise: 20_physics_for_games/30_no_acceleration.py
     display: true
   - name: acceleration
-    exercise: 20_Physics_for_Games/40_acceleration.py
+    exercise: 20_physics_for_games/40_acceleration.py
+    display: true
+  - name: acceleration body
+    exercise: 20_physics_for_games/50_acceleration_body.py
     display: true
   - name: gravity
-    exercise: 20_Physics_for_Games/50_gravity.py
+    exercise: 20_physics_for_games/60_gravity.py
     display: true
   - name: gravity bounce
-    exercise: 20_Physics_for_Games/60_gravity_bounce.py
+    exercise: 20_physics_for_games/70_gravity_bounce.py
     display: true
-- name: FirstOrbits
+- name: vectors
+  uid: HEJoEQiP
+  lessons:
+  - name: vectors
+    uid: 2F6jwP3p
+    exercise: 30_vectors/10_vectors.ipynb
+  - name: vector example
+    exercise: 30_vectors/20_vector_example.py
+    display: true
+  - name: vector rotations
+    exercise: 30_vectors/30_vector_rotations.py
+    display: true
+  - name: using vectors
+    uid: vD7bt0FZ
+    exercise: 30_vectors/40_using_vectors.ipynb
+  - name: vector walk
+    exercise: 30_vectors/50_vector_walk.py
+    display: true
+  - name: gravity bounce vec
+    exercise: 30_vectors/60_gravity_bounce_vec.py
+    display: true
+- name: firstorbits
   uid: i1py4Aox
   lessons:
-  - name: Stage 2
+  - name: first orbits
+    uid: ZJMrVLnN
+    exercise: 40_firstorbits/10_first_orbits.ipynb
+  - name: stage1
+    exercise: 40_firstorbits/20_stage1.py
+    display: true
+  - name: stage 2
     uid: ZMAeFi2A
-    exercise: 30_FirstOrbits/10_Stage_2.ipynb
-- name: Integration
+    exercise: 40_firstorbits/30_stage_2.ipynb
+  - name: gravity
+    exercise: 40_firstorbits/40_gravity.py
+    display: true
+  - name: gravity
+    exercise: 40_firstorbits/50_gravity.py
+    display: true
+- name: integration
   uid: eCyjgWmj
   lessons:
-  - name: Integration Error
+  - name: integration error
     uid: j5ZS4Cib
-    exercise: 40_Integration/10_Integration_Error.ipynb
-- name: NBody
+    exercise: 50_integration/10_integration_error.ipynb
+- name: nbody
   uid: QDfDPKRe
   lessons:
   - name: rebound transition guide
-    lesson: 50_NBody/10_rebound_transition_guide.md
+    lesson: 60_nbody/10_rebound_transition_guide.md
   - name: stage3
-    exercise: 50_NBody/20_stage3.py
+    exercise: 60_nbody/20_stage3.py
     display: true

@@ -8,6 +8,7 @@ The square is constrained to the screen, so it can't go off the edges.
 This version uses Object Oriented Programming with a Settings class to hold
 all constants and a Simulation class to handle the main loop.
 
+# title: Moving Square
 """
 
 import pygame

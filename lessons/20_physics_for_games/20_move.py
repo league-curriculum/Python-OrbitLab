@@ -4,8 +4,6 @@ Moving Square - Object Oriented Version
 All this game does is move a square around the screen using the arrow keys.
 The square is constrained to the screen, so it can't go off the edges.
 
-This version uses Object Oriented Programming with a Settings class to hold
-all constants and a Simulation class to handle the main loop.
 
 # name: Moving Square
 

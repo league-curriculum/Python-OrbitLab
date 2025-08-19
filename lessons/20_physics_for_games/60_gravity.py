@@ -5,9 +5,6 @@ This program demonstrates a simple implementation of gravity in a game,
 with the player constantly jumping. Notice that using gravity makes the player
 jump more realistic. The player goes up quickly, but falls slowly.
 
-This version uses Object Oriented Programming with a Settings dataclass to hold
-all constants, a Body class for the player physics, and a Simulation class
-to handle the main loop and game logic.
 
 uid: 3IDQVkBh
 name: Gravity

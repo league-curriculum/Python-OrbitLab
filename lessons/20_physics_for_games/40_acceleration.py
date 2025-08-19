@@ -5,8 +5,6 @@ This demonstrates acceleration using a spring force that pulls the square
 toward the center of the screen. The square oscillates back and forth around
 the center position, showing how acceleration affects velocity over time.
 
-This version uses Object Oriented Programming with a Settings dataclass to hold
-all constants and a Simulation class to handle the main loop and physics.
 
 uid: 3hb3eMvH
 name: Acceleration

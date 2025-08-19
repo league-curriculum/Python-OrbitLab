@@ -1,0 +1,19 @@
+[project]
+name = "python-orbitlab"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ipykernel>=6.29.5",
+    "ipywidgets>=8.1.7",
+    "jtl-syllabus>=1.20250530.2",
+    "jupyterquiz>=2.9.6.2",
+    "matplotlib>=3.10.3",
+    "numpy>=2.3.0",
+    "pygame>=2.6.1",
+    "pymunk>=7.0.1",
+    "pyparticles>=0.3.5",
+    "rebound>=4.4.10",
+    "scipy>=1.16.0",
+]

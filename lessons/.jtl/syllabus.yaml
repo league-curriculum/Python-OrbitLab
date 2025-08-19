@@ -1,0 +1,52 @@
+name: Orbit Lab
+description: Orbit Lab
+module_dir: ..
+uid: d0f587da-5672-4c83-8a59-0d26494cf274
+modules:
+- name: Introduction
+  uid: pHtFaT17
+  lessons:
+  - name: Orbit Lab
+    uid: IUh3u37k
+    exercise: 10_Introduction/10_Orbit_Lab.ipynb
+- name: Physics for Games
+  uid: QIg0BBOF
+  lessons:
+  - name: Physics for Games
+    uid: UXZGPhKm
+    exercise: 20_Physics_for_Games/10_Physics_for_Games.ipynb
+  - name: move
+    exercise: 20_Physics_for_Games/20_move.py
+    display: true
+  - name: no acceleration
+    exercise: 20_Physics_for_Games/30_no_acceleration.py
+    display: true
+  - name: acceleration
+    exercise: 20_Physics_for_Games/40_acceleration.py
+    display: true
+  - name: gravity
+    exercise: 20_Physics_for_Games/50_gravity.py
+    display: true
+  - name: gravity bounce
+    exercise: 20_Physics_for_Games/60_gravity_bounce.py
+    display: true
+- name: FirstOrbits
+  uid: i1py4Aox
+  lessons:
+  - name: Stage 2
+    uid: ZMAeFi2A
+    exercise: 30_FirstOrbits/10_Stage_2.ipynb
+- name: Integration
+  uid: eCyjgWmj
+  lessons:
+  - name: Integration Error
+    uid: j5ZS4Cib
+    exercise: 40_Integration/10_Integration_Error.ipynb
+- name: NBody
+  uid: QDfDPKRe
+  lessons:
+  - name: rebound transition guide
+    lesson: 50_NBody/10_rebound_transition_guide.md
+  - name: stage3
+    exercise: 50_NBody/20_stage3.py
+    display: true

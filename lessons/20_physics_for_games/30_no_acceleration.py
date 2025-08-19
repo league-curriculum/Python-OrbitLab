@@ -1,11 +1,12 @@
 """
-
 Move a square, with no acceleration - Object Oriented Version
 
 This version uses Object Oriented Programming with a Settings dataclass to hold
 all constants and a Simulation class to handle the main loop and game logic.
 The square moves automatically left and right, bouncing off the screen edges.
 
+uid: igVBJmhm
+name: No Acceleration
 """
 
 import pygame

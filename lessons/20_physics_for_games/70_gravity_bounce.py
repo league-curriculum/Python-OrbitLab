@@ -1,5 +1,4 @@
 """
-
 Gravity Bounce with X Motion - Object Oriented Version
 
 If we add X velocity, from side to side, the player will bounce around the
@@ -10,6 +9,8 @@ This version uses Object Oriented Programming with a Settings dataclass to hold
 all constants, a Body class for the bouncing object physics, and a Simulation class
 to handle the main loop and game logic.
 
+uid: IaZqWmy2
+name: Gravity Bounce
 """
 
 import pygame

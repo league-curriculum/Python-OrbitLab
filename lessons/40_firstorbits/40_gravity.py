@@ -5,7 +5,10 @@ This program demonstrates basic orbital motion principles using simple physics e
 A sun is drawn in the center, and an earth orbits around it using basic velocity and 
 position updates - the same math principles as the gravity demo but extended to 2D.
 
+uid: B2e0lLRD
+name: Gravity
 """
+
 import pygame
 import math
 from dataclasses import dataclass

@@ -1,3 +1,8 @@
+"""
+uid: vxOyxbKP
+name: Stage3
+"""
+
 import pygame
 import math
 import rebound

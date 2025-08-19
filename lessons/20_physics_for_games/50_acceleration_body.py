@@ -1,5 +1,4 @@
 """
-
 Accelerating Square with Body Class - Advanced Object Oriented Version
 
 This demonstrates acceleration using a spring force that pulls the square
@@ -10,6 +9,8 @@ This version introduces a Body class that encapsulates the physics properties
 (position, velocity, acceleration) and behavior (update, draw) of the moving object.
 This separation of concerns makes the code more modular and easier to extend.
 
+uid: 2C6XBKVG
+name: Acceleration Body
 """
 
 import pygame

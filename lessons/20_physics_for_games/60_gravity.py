@@ -1,5 +1,4 @@
 """
-
 Implementing Gravity - Object Oriented Version
 
 This program demonstrates a simple implementation of gravity in a game,
@@ -10,6 +9,8 @@ This version uses Object Oriented Programming with a Settings dataclass to hold
 all constants, a Body class for the player physics, and a Simulation class
 to handle the main loop and game logic.
 
+uid: 3IDQVkBh
+name: Gravity
 """
 
 import pygame

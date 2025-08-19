@@ -1,3 +1,8 @@
+"""
+uid: dN5vxWkG
+name: Stage1
+"""
+
 import pygame
 import math
 

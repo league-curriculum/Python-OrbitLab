@@ -1,5 +1,6 @@
 ---
 uid: HEJoEQiP
+name: Vectors
 ---
 
 # Vectors

@@ -1,5 +1,4 @@
 """
-
 Accelerating Square - Object Oriented Version
 
 This demonstrates acceleration using a spring force that pulls the square
@@ -9,6 +8,8 @@ the center position, showing how acceleration affects velocity over time.
 This version uses Object Oriented Programming with a Settings dataclass to hold
 all constants and a Simulation class to handle the main loop and physics.
 
+uid: 3hb3eMvH
+name: Acceleration
 """
 
 import pygame

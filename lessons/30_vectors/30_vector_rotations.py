@@ -4,6 +4,9 @@ Vector Rotations - Object Oriented Version
 Demonstrates rotating and scaling vectors on a labeled grid using Vector20.
 This version uses a Settings dataclass, a Simulation class, and follows the
 Python-OrbitLab style guide for structure and naming.
+
+uid: NmAldWRh
+name: Vector Rotations
 """
 
 from dataclasses import dataclass

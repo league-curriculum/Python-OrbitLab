@@ -47,7 +47,8 @@ modules:
     exercise: 30_vectors/10_vectors.ipynb
   - name: Vector Example
     uid: 7OQwInzg
-    exercise: 30_vectors/20_vector_example.py
+    lesson: 30_vectors/20_vector_example/README.md
+    exercise: 30_vectors/20_vector_example/vector_example.py
     display: true
   - name: Vector Rotations
     uid: NmAldWRh

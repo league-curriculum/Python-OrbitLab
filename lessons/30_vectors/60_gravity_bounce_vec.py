@@ -34,14 +34,17 @@ class Ball:
     def update(self):
         self.velocity.y += Settings.GRAVITY
         self.position += self.velocity
+
         # Bounce off the floor
         if self.position.y + Settings.BALL_RADIUS > Settings.SCREEN_HEIGHT:
             self.position.y = Settings.SCREEN_HEIGHT - Settings.BALL_RADIUS
             self.velocity.y *= -Settings.ELASTICITY
+
         # Bounce off the walls
         if self.position.x - Settings.BALL_RADIUS < 0:
             self.position.x = Settings.BALL_RADIUS
             self.velocity.x *= -Settings.ELASTICITY
+            
         elif self.position.x + Settings.BALL_RADIUS > Settings.SCREEN_WIDTH:
             self.position.x = Settings.SCREEN_WIDTH - Settings.BALL_RADIUS
             self.velocity.x *= -Settings.ELASTICITY

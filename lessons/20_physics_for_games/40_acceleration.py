@@ -5,7 +5,6 @@ This demonstrates acceleration using a spring force that pulls the square
 toward the center of the screen. The square oscillates back and forth around
 the center position, showing how acceleration affects velocity over time.
 
-
 uid: 3hb3eMvH
 name: Acceleration
 """

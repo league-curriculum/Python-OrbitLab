@@ -1,4 +1,6 @@
-
+---
+uid: lujUMYc7
+---
 
 # Draw a square with Vectors. 
 
@@ -14,4 +16,4 @@ labels. Use it just like you would a `Vector2`
 5. Create a new vector v2 by rotating v1 by 90 dregrees, and draw it from the
    ending position of v1 ( which is the return value from the draw_v20()
    function )
-6. Continue rotating and drawing until you have drawn a square. 
+6. Continue rotating and drawing until you have drawn a square.

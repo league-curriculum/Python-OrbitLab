@@ -6,3 +6,6 @@ numpy
 matplotlib
 jupyterquiz
 rebound
+mermaid-py
+astropy
+skyfield

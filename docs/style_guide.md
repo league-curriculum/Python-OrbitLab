@@ -40,10 +40,11 @@ class Settings:
     # Display settings
     BACKGROUND_COLOR = (0, 0, 0)  # Black
     FPS: int = 60
+    TIMESCALE: int = 1
     
     def __post_init__(self):
         """Calculate derived values after initialization."""
-        self.d_t = 1.0 / self.FPS  # Time step for physics calculations
+        self.d_t = self.TIMESCALE / self.FPS  # Time step for physics calculations
 ```
 
 ### Naming Conventions for Settings

@@ -5,15 +5,18 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "astropy>=7.1.0",
     "ipykernel>=6.29.5",
     "ipywidgets>=8.1.7",
     "jtl-syllabus>=1.20250530.2",
     "jupyterquiz>=2.9.6.2",
     "matplotlib>=3.10.3",
+    "mermaid-py>=0.8.0",
     "numpy>=2.3.0",
     "pygame>=2.6.1",
     "pymunk>=7.0.1",
     "pyparticles>=0.3.5",
     "rebound>=4.4.10",
     "scipy>=1.16.0",
+    "skyfield>=1.53",
 ]

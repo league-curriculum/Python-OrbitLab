@@ -34,10 +34,11 @@ class Settings:
     # Display settings
     BACKGROUND_COLOR: tuple[int, int, int] = (255, 255, 255)  # White
     FPS: int = 30
+    TIMESCALE: int = 1
 
     def __post_init__(self):
         """Calculate derived values after initialization."""
-        self.d_t = 1.0 / self.FPS  # Time step for physics calculations
+        self.d_t = self.TIMESCALE / self.FPS  # Time step for physics calculations
 
 
 class Body:
@@ -69,9 +70,7 @@ class Body:
 
     def jump(self, jump_velocity: float):
         """Initiate a jump by setting upward velocity."""
-        self.v_y = (
-            -jump_velocity
-        )  # Negative because up is negative in screen coordinates
+        self.v_y = -jump_velocity n# Negative because up is negative in screen coordinates
 
     def update(self):
         """Update the body's position and velocity based on acceleration."""

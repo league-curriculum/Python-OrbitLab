@@ -9,6 +9,7 @@ name: No Acceleration
 
 import pygame
 from dataclasses import dataclass
+from orbitlib import Colors
 
 
 @dataclass
@@ -21,7 +22,7 @@ class Settings:
 
     # Square settings
     SQUARE_SIZE: int = 50
-    SQUARE_COLOR: tuple[int, int, int] = (255, 0, 0)  # Red
+    SQUARE_COLOR = Colors.RED
     SQUARE_SPEED: int = 300
 
     # Display settings

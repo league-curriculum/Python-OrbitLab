@@ -12,6 +12,7 @@ uid: BXW9x2OW
 
 import pygame
 from dataclasses import dataclass
+from orbitlib.colors import Colors
 
 
 @dataclass
@@ -24,16 +25,12 @@ class Settings:
 
     # Square settings
     SQUARE_SIZE: int = 50
-    SQUARE_COLOR: tuple[int, int, int] = (
-        0,
-        128,
-        255,
-    )  # Red-Green-Blue color in the range 0-255
+    SQUARE_COLOR = Colors.LIGHT_BLUE
     
     SQUARE_SPEED: int = 300  # Speed of the square in pixels per second
 
     # Display settings
-    BACKGROUND_COLOR: tuple[int, int, int] = (255, 255, 255)  # White
+    BACKGROUND_COLOR = Colors.WHITE
     FPS: int = 60
 
     def __post_init__(self):

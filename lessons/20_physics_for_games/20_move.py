@@ -4,8 +4,7 @@ Moving Square - Object Oriented Version
 All this game does is move a square around the screen using the arrow keys.
 The square is constrained to the screen, so it can't go off the edges.
 
-
-# name: Moving Square
+Move the square around the screen with the arrow keys. 
 
 name: Moving Square
 uid: BXW9x2OW
@@ -30,6 +29,7 @@ class Settings:
         128,
         255,
     )  # Red-Green-Blue color in the range 0-255
+    
     SQUARE_SPEED: int = 300  # Speed of the square in pixels per second
 
     # Display settings

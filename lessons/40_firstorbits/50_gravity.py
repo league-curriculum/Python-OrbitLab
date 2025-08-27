@@ -12,6 +12,7 @@ name: Gravity
 import pygame
 import math
 from dataclasses import dataclass
+from orbitlib.colors import Colors
 
 # Initialize Pygame
 pygame.init()
@@ -24,10 +25,10 @@ class GameSettings:
     screen_height: int = 500
     
     # Colors
-    white: tuple = (255, 255, 255)
-    black: tuple = (0, 0, 0)
-    yellow: tuple = (255, 255, 0)  # Sun color
-    blue: tuple = (0, 100, 255)    # Earth color
+    white: tuple = Colors.WHITE
+    black: tuple = Colors.BLACK
+    yellow: tuple = Colors.YELLOW  # Sun color
+    blue: tuple = Colors.BLUE      # Earth color
     
     # Physics - same basic principles as before
     d_t: float = 1.0/30  # time step, same as before

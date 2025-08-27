@@ -9,7 +9,7 @@ name: No Acceleration
 
 import pygame
 from dataclasses import dataclass
-from orbitlib import Colors
+from orbitlib.colors import Colors
 
 
 @dataclass
@@ -26,7 +26,7 @@ class Settings:
     SQUARE_SPEED: int = 300
 
     # Display settings
-    BACKGROUND_COLOR: tuple[int, int, int] = (0, 0, 0)  # Black
+    BACKGROUND_COLOR = Colors.BLACK
     FPS: int = 60  # Frames per second
 
     def __post_init__(self):

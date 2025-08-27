@@ -11,6 +11,7 @@ name: Acceleration
 
 import pygame
 from dataclasses import dataclass
+from orbitlib.colors import Colors
 
 
 @dataclass
@@ -23,14 +24,14 @@ class Settings:
 
     # Square settings
     SQUARE_SIZE: int = 50
-    SQUARE_COLOR: tuple[int, int, int] = (255, 0, 0)  # Red
+    SQUARE_COLOR: tuple[int, int, int] = Colors.RED
 
     # Physics settings
     K: float = 3.0  # Spring constant, controls how strong the spring force is
     MASS: float = 2.0  # Mass of the square, used to calculate acceleration
 
     # Display settings
-    BACKGROUND_COLOR: tuple[int, int, int] = (0, 0, 0)  # Black
+    BACKGROUND_COLOR: tuple[int, int, int] = Colors.BLACK
     FPS: int = 60
 
     def __post_init__(self):

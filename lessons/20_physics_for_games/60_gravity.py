@@ -11,6 +11,7 @@ name: Gravity
 
 import pygame
 from dataclasses import dataclass
+from orbitlib.colors import Colors
 
 
 @dataclass
@@ -23,7 +24,7 @@ class Settings:
 
     # Player settings
     PLAYER_SIZE: int = 10
-    PLAYER_COLOR: tuple[int, int, int] = (0, 0, 0)  # Black
+    PLAYER_COLOR: tuple[int, int, int] = Colors.BLACK
     PLAYER_X: int = 100  # Initial x position of the player
 
     # Physics settings
@@ -32,7 +33,7 @@ class Settings:
     MASS: float = 2.0  # Mass of the player
 
     # Display settings
-    BACKGROUND_COLOR: tuple[int, int, int] = (255, 255, 255)  # White
+    BACKGROUND_COLOR: tuple[int, int, int] = Colors.WHITE
     FPS: int = 30
     TIMESCALE: int = 1
 

@@ -10,6 +10,7 @@ name: Vector Example
 import pygame
 from vector20 import Vector20Factory
 from dataclasses import dataclass
+from orbitlib.colors import Colors
 
 
 @dataclass
@@ -18,7 +19,7 @@ class Settings:
     SCREEN_HEIGHT: int = 600
     SCALE: int = 20
     FPS: int = 30
-    BACKGROUND_COLOR = (255, 255, 255)
+    BACKGROUND_COLOR = Colors.WHITE
     WINDOW_TITLE: str = "Vector Example"
 
 

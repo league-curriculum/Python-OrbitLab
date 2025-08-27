@@ -10,6 +10,7 @@ name: Gravity Bounce
 
 import pygame
 from dataclasses import dataclass
+from orbitlib.colors import Colors
 
 
 @dataclass
@@ -22,7 +23,7 @@ class Settings:
 
     # Square settings
     SQUARE_SIZE: int = 20
-    SQUARE_COLOR: tuple[int, int, int] = (0, 0, 0)  # Black
+    SQUARE_COLOR: tuple[int, int, int] = Colors.BLACK
 
     # Physics settings
     GRAVITY: float = 60.0  # Gravitational acceleration (downward)
@@ -31,7 +32,7 @@ class Settings:
     MASS: float = 2.0  # Mass of the square
 
     # Display settings
-    BACKGROUND_COLOR: tuple[int, int, int] = (255, 255, 255)  # White
+    BACKGROUND_COLOR: tuple[int, int, int] = Colors.WHITE
     FPS: int = 30
 
     def __post_init__(self):

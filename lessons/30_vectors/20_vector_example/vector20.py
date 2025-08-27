@@ -10,13 +10,14 @@ intended for classroom demonstration and student exploration, not for use in pro
 
 import pygame
 import math
+from orbitlib.colors import Colors
 
 # Constants for colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-BLUE = (0, 0, 255)
-GREEN = (0, 100, 0)
-GRAY = (128, 128, 128)
+WHITE = Colors.WHITE
+BLACK = Colors.BLACK
+BLUE = Colors.BLUE
+GREEN = Colors.DARK_GREEN
+GRAY = Colors.DARK_GRAY
 
 
 # Factory function to create the Vector20 class with customizable screen size and scale
@@ -211,7 +212,7 @@ def Vector20Factory(screen_width=800, screen_height=600, scale=20):
         Args:
             screen (pygame.Surface): The surface to draw on.
         """
-        screen.fill((255, 255, 255))
+        screen.fill(WHITE)
         _draw_grid(screen)
         _label_lines(screen)
 

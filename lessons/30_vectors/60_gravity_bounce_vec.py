@@ -10,6 +10,7 @@ name: Gravity Bounce Vec
 from dataclasses import dataclass
 
 import pygame
+from orbitlib.colors import Colors
 
 
 @dataclass
@@ -17,8 +18,8 @@ class Settings:
     SCREEN_WIDTH: int = 800
     SCREEN_HEIGHT: int = 600
     BALL_RADIUS: int = 20
-    BALL_COLOR = (0, 0, 255)
-    BACKGROUND_COLOR = (255, 255, 255)
+    BALL_COLOR = Colors.BLUE
+    BACKGROUND_COLOR = Colors.WHITE
     GRAVITY: float = 0.5
     ELASTICITY: float = 0.8
     FPS: int = 60

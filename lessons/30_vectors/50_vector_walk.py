@@ -10,6 +10,7 @@ name: Vector Walk
 from dataclasses import dataclass
 
 import pygame
+from orbitlib.colors import Colors
 
 
 @dataclass
@@ -17,10 +18,10 @@ class Settings:
     SCREEN_WIDTH: int = 800
     SCREEN_HEIGHT: int = 600
     PLAYER_SIZE: int = 20
-    LINE_COLOR = (0, 255, 0)
-    PLAYER_COLOR = (0, 0, 255)
-    BACKGROUND_COLOR = (255, 255, 255)
-    TEXT_COLOR = (0, 0, 0)
+    LINE_COLOR = Colors.GREEN
+    PLAYER_COLOR = Colors.BLUE
+    BACKGROUND_COLOR = Colors.WHITE
+    TEXT_COLOR = Colors.BLACK
     FPS: int = 30
     ANGLE_CHANGE: int = 3
     LENGTH_CHANGE: int = 5
@@ -95,6 +96,11 @@ class Player:
 
 class Simulation:
     def __init__(self):
+
+        pygame.init()
+        pygame.font.init()
+        pygame.display.set_caption("Player with Direction Vector")
+
         self.settings = Settings()
 
         self.screen = pygame.display.set_mode(
@@ -139,8 +145,6 @@ class Simulation:
         self.screen.blit(angle_surface, (10, Settings.SCREEN_HEIGHT - 20))
 
     def run(self):
-        pygame.init()
-        pygame.display.set_caption("Player with Direction Vector")
 
         running = True
         pygame.key.set_repeat(50, 50)

@@ -7,6 +7,7 @@ import pygame
 import math
 import rebound
 import numpy as np
+from orbitlib.colors import Colors
 
 # Initialize Pygame
 pygame.init()
@@ -19,14 +20,14 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Solar System - Rebound Integration")
 
 # Colors
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-ORANGE = (255, 165, 0)
-GRAY = (128, 128, 128)
+GREEN = Colors.GREEN
+RED = Colors.RED
+BLUE = Colors.BLUE
+YELLOW = Colors.YELLOW
+WHITE = Colors.WHITE
+BLACK = Colors.BLACK
+ORANGE = Colors.ORANGE
+GRAY = Colors.DARK_GRAY
 
 # Astronomical constants (in SI units)
 AU = 1.496e11  # Astronomical Unit in meters
@@ -341,7 +342,7 @@ def create_demo_system():
     
     mars = Planet(  
         mass=M_MARS, 
-        color=(255, 0, 0),  # Red color for Mars
+        color=RED,  # Red color for Mars
         radius=5, 
         name="Mars",
         orbital_distance=1.524 * AU,  # 1.524 AU from Sun
@@ -363,7 +364,7 @@ def create_demo_system():
     
     jupiter = Planet(
         mass=M_JUPITER,  # Jupiter mass in kg
-        color=(255, 165, 0),  # Orange color for Jupiter
+        color=ORANGE,  # Orange color for Jupiter
         radius=12,  # Visual size
         name="Jupiter",
         orbital_distance=5.2 * AU,  # 5.2 AU from Sun

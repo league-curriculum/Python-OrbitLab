@@ -18,18 +18,18 @@ modules:
   - name: Orbit Lab
     uid: IUh3u37k
     exercise: 20_physics_for_games/20_motion.ipynb
-  - name: Moving Square (Ultra Simple)
+  - name: Moving Square
     uid: BXW9x2OW
     exercise: 20_physics_for_games/30_move.py
     display: true
-  - name: No Acceleration (Ultra Simple)
+  - name: No Acceleration
     uid: igVBJmhm
     exercise: 20_physics_for_games/40_no_acceleration.py
     display: true
-  - name: Acceleration (Ultra Simple)
+  - name: Spring Acceleration
     uid: 3hb3eMvH
-    lesson: 20_physics_for_games/50_acceleration/README.md
-    exercise: 20_physics_for_games/50_acceleration/acceleration.py
+    lesson: 20_physics_for_games/50_spring/README.md
+    exercise: 20_physics_for_games/50_spring/spring.py
     display: true
   - name: Acceleration Body
     uid: 2C6XBKVG

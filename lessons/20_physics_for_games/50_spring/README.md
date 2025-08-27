@@ -20,4 +20,6 @@ points in the opposite direction that you stretched it.
 
 ## Assignment
 
-Update the program to include a y direction that operates just like the x direction. 
+Update the program to include a y direction that operates just like the x
+direction. Start your program with a bit uf up or down velocity in the y
+direction. 

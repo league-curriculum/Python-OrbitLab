@@ -1,0 +1,17 @@
+[project]
+name = "orbitlib"
+version = "0.1.0"
+description = "Support code for Python Orbitlab class. "
+readme = "README.md"
+authors = [
+    { name = "Eric Busboom", email = "eric@busboom.org" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+orbitlab = "orbitlab:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

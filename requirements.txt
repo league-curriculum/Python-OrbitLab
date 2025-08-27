@@ -9,3 +9,4 @@ rebound
 mermaid-py
 astropy
 skyfield
+tabulate

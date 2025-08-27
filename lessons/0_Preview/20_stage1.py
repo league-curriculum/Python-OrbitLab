@@ -3,13 +3,23 @@ uid: dN5vxWkG
 name: Stage1
 """
 
+from matplotlib.sankey import UP
 import pygame
 import math
 from dataclasses import dataclass
-from skyfield.api import load
+
+from orbitlib.data import  build_planet_data
+import logging
+import time
+import os
 
 
-planets = load('de421.bsp')  # JPL ephemeris file
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.ERROR)
+
+
+pd = build_planet_data()
+
 
 @dataclass
 class Settings:
@@ -19,49 +29,64 @@ class Settings:
 
     SCREEN_CENTER: tuple[int, int] = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
 
-    FPS: int = 60
-
-    G: float = 0.5  # Gravitational constant (scaled for visualization)
+    G: float = 6.67430e-11  # Gravitational constant (scaled for visualization)
 
     BACKGROUND_COLOR = (0, 0, 0)
     STAR_COLOR = (255, 255, 0)
-    PLANET_1_COLOR = (0, 0, 255)
-    PLANET_2_COLOR = (0, 255, 0)
-    PLANET_3_COLOR = (255, 0, 0)
-    PLANET_4_COLOR = (0, 255, 255)
+
+    # array of 10 distinctive colors for the planets
+    PLANET_COLORS = [
+        (0, 0, 255),   # Planet 1
+        (0, 255, 0),   # Planet 2
+        (255, 0, 0),   # Planet 3
+        (0, 255, 255), # Planet 4
+        (255, 0, 255), # Planet 5
+        (255, 255, 0), # Planet 6
+        (128, 0, 0),   # Planet 7
+        (0, 128, 0),   # Planet 8
+        (0, 0, 128),   # Planet 9
+        (128, 128, 0), # Planet 10
+    ]
 
     # Force and velocity vectors. 
     FORCE_COLOR = (255, 0, 0)
     VELOCITY_COLOR = (0, 255, 0)
 
-    # Adjust the time scale to change the speed
-    TIME_SCALE : int = 10
+    AU = 1.49597871e+11 # Astronomical Unit in km
+    DIST_SCALE = AU / (SCREEN_WIDTH / 4) # Kilometers per pixel
 
-    AU = 1.49597871e+11 # Astronomical Unit in meters
+    FPS: int = 60 # Frames per second draw update frames/wsec
 
-    DIST_SCALE = AU / (SCREEN_WIDTH/2) # Meters per pixel
+    # Simulated secs per real sec ( ssec / wsec )
+    #  (365 * 24 * 60 * 60) / 30  would be 30 seconds per year
+    SIM_SEC_PER_SEC: float = (365 * 24 * 60 * 60) / 10
 
-    def __post_init__(self):
-        self.d_t = self.TIME_SCALE / self.FPS
+    #D_T: int = 60*30 # ssec/update
+    #UPDATES_PER_FRAME: int = int(SIM_SEC_PER_SEC / (D_T * FPS))
+
+    UPDATES_PER_FRAME: int = 3
+    D_T: float = SIM_SEC_PER_SEC / (FPS * UPDATES_PER_FRAME)
 
     @classmethod
     def m2p(cls, meters: float|pygame.Vector2) -> float|pygame.Vector2:
         """Convert meters to pixels."""
-        return meters * cls.DIST_SCALE
+        return meters / cls.DIST_SCALE
 
     @classmethod
     def p2m(cls, pixels: float|pygame.Vector2) -> float|pygame.Vector2:
         """Convert pixels to meters."""
-        return pixels / cls.DIST_SCALE
+        return pixels * cls.DIST_SCALE
 
 
 class CelestialBody:
     """Base class for all celestial bodies."""
     def __init__(self, 
+                 name: str,
                  position: tuple | pygame.Vector2, 
                  velocity: tuple | pygame.Vector2, 
                  color: tuple, radius: int, mass: int, settings: Settings):
         
+        self.name = name
         self.color = color
         self.radius = radius
         self.mass = mass
@@ -74,34 +99,51 @@ class CelestialBody:
         """Calculate the gravitational force exerted by another body on this planet."""
         # Distance squared between the two bodies
 
-        r2 = self.pos.distance_squared_to(other.pos)
-       
+        r2 = self.pos.distance_squared_to(other.pos) 
+        logger.info(f"  Distance^2 from {self.name} to {other.name}: {r2}")
+
         if r2 == 0:
             return pygame.Vector2(0, 0)
        
         # Gravitational force magnitude
-       
+
+        logger.info(f"  masses: {self.mass * other.mass}")
+
         f_g = (self.settings.G * self.mass * other.mass) / r2
-       
+        logger.info(f"  Force due to {other.name}: {f_g}")
+
         # Force vector pointing towards the other body
         return (other.pos - self.pos).normalize() * f_g
 
     def update_physics(self, others: list["CelestialBody"]):
         """Advance the planet's state by one time step."""
         
+
+        logger.info(f"Update {self.name} at pos {self.pos} vel {self.vel}")
         # Force from the sun
         self._force = pygame.Vector2(0,0)
 
         for other in others:
             if other is not self:
-                self._force += self.force_due_to(other)
+                f = self.force_due_to(other)
+                
+                self._force += f
+
+        logger.info(f"Total force on {self.name}: {self._force}")
 
         # Acceleration of the planet, from f=ma
         a = self._force / self.mass
         
         # Integrate motion
-        self.vel += a * self.settings.d_t         # v = a * t + v0
-        self.pos += self.vel * self.settings.d_t  # x = v * t + x0
+        self.vel += a * self.settings.D_T         # v = a * t + v0
+        self.pos += self.vel * self.settings.D_T  # x = v * t + x0
+
+        logger.info(f"New position {self.name} at {self.pos} v={self.vel} a={a} f={self._force}")
+
+    def draw(self, screen: pygame.Surface):
+        """Draw the celestial body."""
+        logger.info(f"Draw {self.name} at: {self.pos} {Settings.m2p(self.pos)}")
+        pygame.draw.circle(screen, self.color, Settings.m2p(self.pos)+Settings.SCREEN_CENTER, self.radius)
 
     def update(self, others: list["CelestialBody"]):
         """Stars are static in this stage; nothing to update."""
@@ -126,26 +168,23 @@ class CelestialBody:
       
 
 class Star(CelestialBody):
-    def __init__(self, position: tuple | pygame.Vector2, color: tuple, radius: int, mass: int, settings: Settings):
-        super().__init__(position, (0,0), color, radius, mass, settings)
+    def __init__(self, name: str, position: tuple | pygame.Vector2, color: tuple, radius: int, mass: int, settings: Settings):
+        super().__init__(name, position, (0,0), color, radius, mass, settings)
 
-    def draw(self, screen: pygame.Surface):
-        """Draw the star."""
-        pygame.draw.circle(screen, self.color, Settings.m2p(self.pos)+Settings.SCREEN_CENTER, self.radius)
 
 class Planet(CelestialBody):
-    def __init__(self, position: tuple | pygame.Vector2, 
+    def __init__(self, name: str, position: tuple | pygame.Vector2, 
                  velocity: tuple | pygame.Vector2, 
                  color: tuple, radius: int, mass: int, settings: Settings):
         """Initialize a planet orbiting a star with position and velocity relative to the star."""
  
-        super().__init__(position, velocity,  color, radius, mass, settings)
+        super().__init__(name, position, velocity,  color, radius, mass, settings)
 
 
     def draw(self, screen: pygame.Surface):
         """Draw the planet and its vectors."""
 
-        pygame.draw.circle(screen, self.color, Settings.m2p(self.pos)+Settings.SCREEN_CENTER, self.radius)
+        super().draw(screen)
 
         # Draw vectors (uses last computed force)
         #self.draw_vectors(screen, getattr(self, "_force", pygame.Vector2(0, 0)))
@@ -161,16 +200,30 @@ class Planet(CelestialBody):
 class Simulation:
     """Handle the main loop, updating and drawing bodies."""
 
-    def __init__(self):
+    def __init__(self, bodies: list[CelestialBody] = None):
         # Initialize Pygame
         pygame.init()
         # Settings
         self.settings = Settings()
+
+
         # Screen and clock
+
         self.screen = pygame.display.set_mode((self.settings.SCREEN_WIDTH, self.settings.SCREEN_HEIGHT))
+
         pygame.display.set_caption("Solar System")
         self.clock = pygame.time.Clock()
 
+        self.bodies = bodies if bodies is not None else []
+        self.running = False
+
+    def add_bodies(self, bodies: list[CelestialBody]):
+        """Add bodies to the simulation."""
+        self.bodies.extend(bodies)
+
+    def add_body(self, body: CelestialBody):
+        """Add a single body to the simulation."""
+        self.bodies.append(body)
 
     def update(self):
         """Update physics for all bodies."""
@@ -179,25 +232,43 @@ class Simulation:
 
     def draw(self):
         """Draw all bodies to the screen."""
+
         self.screen.fill(self.settings.BACKGROUND_COLOR)
 
         for body in self.bodies:
             body.draw(self.screen)
 
+
         pygame.display.flip()
 
-    def run(self, bodies: list[CelestialBody]):
-        """Main simulation loop."""
-        self.bodies = bodies 
-        running = True
-        while running:
+        
+    def run(self):
+        """Main simulation loop with decoupled physics and rendering."""
+        from itertools import count
+
+
+        for i in count():
+            t = Settings.D_T* i
+
+            # Handle events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
-            self.update()
+                    pygame.quit()
+                    return 
+                
+            for i in range(Settings.UPDATES_PER_FRAME):
+                self.update()
+
             self.draw()
+
             self.clock.tick(self.settings.FPS)
-        pygame.quit()
+
+    def dump(self):
+        """Use tabulate to return a string table of: planet name, mass, xy position in km, xy position in pixels
+        """
+        import tabulate 
+        return tabulate.tabulate([[body.name, body.mass, body.pos, Settings.m2p(body.pos)] for body in self.bodies],
+                        headers=["Name", "Mass (kg)", "Position (km)", "Position (pixels)"])
 
 
 def main():
@@ -207,44 +278,75 @@ def main():
 
     # Bodies
     sun = Star(
-        (settings.SCREEN_WIDTH // 2, settings.SCREEN_HEIGHT // 2),
+        "Sun",
+        (0,0),
         settings.STAR_COLOR,
         10,
-        100000,
-        settings,
+        pd['sun'].mass,
+        settings
     )
 
-    center = pygame.Vector2(settings.SCREEN_WIDTH // 2, settings.SCREEN_HEIGHT // 2)
+    p0 = Planet(
+        "Mercury",
+        pd['mercury'].pos2,
+        pd['mercury'].vel2,
+        settings.PLANET_COLORS[0],
+        5,
+        pd['mercury'].mass,
+        settings
+    )
 
     p1 = Planet(
-        center + pygame.Vector2(0, -100),
-        (0, 0),
-        settings.PLANET_1_COLOR,
+        "Venus",
+        pd['venus'].pos2,
+        pd['venus'].vel2,
+        settings.PLANET_COLORS[1],
         10,
-        10,
+        pd['venus'].mass,
         settings
     )
 
     p2 = Planet(
-        center + pygame.Vector2(0, 100),
-        (0, 0),
-        settings.PLANET_2_COLOR,
+        "Earth",
+        pd['earth'].pos2,
+        pd['earth'].vel2,
+        settings.PLANET_COLORS[2],
         10,
-        10,
+        pd['earth'].mass,
         settings
     )
 
-    # Set initial velocities for circular orbits around each other. 
-    if False:
-        p1.vel = p1.circ_orbit_vel(p2)/math.sqrt(2)
-        p2.vel = p2.circ_orbit_vel(p1)/math.sqrt(2)
+    p3 = Planet(
+        "Mars",
+        pd['mars'].pos2,
+        pd['mars'].vel2,
+        settings.PLANET_COLORS[3],
+        10,
+        pd['mars'].mass,
+        settings
+    )
 
-    p1.vel = p1.circ_orbit_vel(sun)
-    p2.vel = p2.circ_orbit_vel(sun)
+    p4 = Planet(
+        "Jupiter",
+        pd['jupiter'].pos2,
+        pd['jupiter'].vel2,
+        settings.PLANET_COLORS[4],
+        10,
+        pd['jupiter'].mass,
+        settings
+    )
 
-    bodies = [sun, p1, p2]
+    bodies = [sun, p0, p1, p2, p3, p4]
 
-    Simulation().run(bodies)
+    print("Scale:", Settings.m2p(Settings.AU))
+    print("Simulated seconds per real second:", Settings.SIM_SEC_PER_SEC)
+    print("Updates per frame:", Settings.UPDATES_PER_FRAME)
+    print("Delta time (seconds):", Settings.D_T)
+
+    s = Simulation(bodies)
+    print(s.dump())
+
+    s.run()
 
 
 if __name__ == "__main__":

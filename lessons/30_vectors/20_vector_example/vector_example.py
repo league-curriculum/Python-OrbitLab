@@ -7,7 +7,7 @@ Demonstrates drawing a sequence of vectors on a labeled grid using Vector20.
 """
 
 import pygame
-from vector20 import Vector20Factory
+from orbitlib.vector20 import Vector20Factory
 from dataclasses import dataclass
 from orbitlib.colors import Colors
 

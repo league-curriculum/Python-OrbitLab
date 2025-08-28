@@ -115,7 +115,7 @@ def Vector20Factory(screen_width=800, screen_height=600, scale=20):
         font = pygame.font.SysFont(None, 24)
 
         disp_x = end_o.x // scale
-        disp_y = end_o.y // scale
+        disp_y = -end_o.y // scale # - to undo effect of display scaling
 
         # Render the text with white background
         text_surface = font.render(f"({disp_x:.1f}, {disp_y:.1f})", True, BLUE, WHITE)

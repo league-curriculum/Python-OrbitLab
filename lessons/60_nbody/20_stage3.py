@@ -13,7 +13,8 @@ from orbitlib.colors import Colors
 pygame.init()
 
 # Constants
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 800
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = SCREEN_WIDTH / 1.75
 
 # Set up the display
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -54,7 +55,7 @@ class CelestialBody:
         self.radius = radius
         self.name = name
         self.trail = []  # List of (position, timestamp) tuples
-        self.max_trail_time = 365 * 24 * 3600  / 2
+        self.max_trail_time = 90 * 24 * 3600  / 2
 
     def add_trail_point(self, pos: tuple, timestamp: float):
         """Add a point to the trail with timestamp and manage trail length by time."""
@@ -351,7 +352,7 @@ def create_demo_system():
     )   
 
     earth = Planet(
-        mass=M_EARTH * 10_000, 
+        mass=M_EARTH, 
         color=BLUE, 
         radius=8, 
         name="Earth",
@@ -374,7 +375,7 @@ def create_demo_system():
 
 
     asteroids = []
-    for i in range(1000):
+    for i in range(40):
         # Random orbital properties
         distance = np.random.uniform(.7, 7.0) * AU  # Between 1.1 and 7.0 AU (asteroid belt)
         ecc =np.random.uniform(0.0, 0.9)  

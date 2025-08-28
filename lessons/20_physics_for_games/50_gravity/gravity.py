@@ -5,8 +5,7 @@ One square that keeps auto-jumping with gravity pulling it down.
 Upward motion is fast, falling is slower — because velocity changes a little
 each frame due to gravity.
 
-uid: 3IDQVkBh
-name: Gravity (Ultra Simple)
+
 """
 
 import pygame

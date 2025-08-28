@@ -3,8 +3,7 @@ Vector Example
 
 Demonstrates drawing a sequence of vectors on a labeled grid using Vector20.
 
-uid: 7OQwInzg
-name: Vector Example
+
 """
 
 import pygame

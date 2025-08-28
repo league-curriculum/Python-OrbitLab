@@ -1,6 +1,6 @@
 # Spring Force Acceleration
 
-This program demonstrated force and acelleration using a spring, represented by
+This program demonstrates force and acelleration using a spring, represented by
 a blue line. The spring is attached between the red square and the green fixed
 point, and it applies a for to the red box that pushes it back to the center of the screen. 
 

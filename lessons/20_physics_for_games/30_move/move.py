@@ -4,8 +4,7 @@ Moving Square
 Move the square with the arrow keys. That's it.
 Everything happens in one loop so it's easy to follow.
 
-name: Moving Square 
-uid: BXW9x2OW
+
 """
 
 import pygame

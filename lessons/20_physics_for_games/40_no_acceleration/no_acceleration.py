@@ -4,8 +4,7 @@ Automatic Back-and-Forth Motion (No Acceleration)
 The square slides left and right at a constant speed and bounces off the
 screen edges. No acceleration, no extra abstractions—just a simple loop.
 
-uid: igVBJmhm
-name: No Acceleration
+
 """
 
 import pygame

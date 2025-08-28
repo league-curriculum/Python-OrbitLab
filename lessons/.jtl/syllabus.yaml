@@ -20,28 +20,32 @@ modules:
     exercise: 20_physics_for_games/20_motion.ipynb
   - name: Moving Square
     uid: BXW9x2OW
-    exercise: 20_physics_for_games/30_move.py
+    lesson: 20_physics_for_games/30_move/README.md
+    exercise: 20_physics_for_games/30_move/move.py
     display: true
   - name: No Acceleration
     uid: igVBJmhm
-    exercise: 20_physics_for_games/40_no_acceleration.py
-    display: true
-  - name: Spring Acceleration
-    uid: 3hb3eMvH
-    lesson: 20_physics_for_games/50_spring/README.md
-    exercise: 20_physics_for_games/50_spring/spring.py
-    display: true
-  - name: Acceleration Body
-    uid: 2C6XBKVG
-    exercise: 20_physics_for_games/60_acceleration_body.py
+    lesson: 20_physics_for_games/40_no_acceleration/README.md
+    exercise: 20_physics_for_games/40_no_acceleration/no_acceleration.py
     display: true
   - name: Gravity
     uid: 3IDQVkBh
-    exercise: 20_physics_for_games/70_gravity.py
+    lesson: 20_physics_for_games/50_gravity/README.md
+    exercise: 20_physics_for_games/50_gravity/gravity.py
+    display: true
+  - name: Spring Acceleration
+    uid: 3hb3eMvH
+    lesson: 20_physics_for_games/60_spring/README.md
+    exercise: 20_physics_for_games/60_spring/spring.py
+    display: true
+  - name: Acceleration Body
+    uid: 2C6XBKVG
+    exercise: 20_physics_for_games/70_acceleration_body.py
     display: true
   - name: Gravity Bounce
     uid: IaZqWmy2
-    exercise: 20_physics_for_games/80_gravity_bounce.py
+    lesson: 20_physics_for_games/80_gravity_bounce/README.md
+    exercise: 20_physics_for_games/80_gravity_bounce/gravity_bounce.py
     display: true
 - name: Vectors
   uid: HEJoEQiP
@@ -49,8 +53,8 @@ modules:
   - name: Vectors
     uid: 2F6jwP3p
     exercise: 30_vectors/10_vectors.ipynb
-  - name: vector example
-    uid: lujUMYc7
+  - name: Vector Example
+    uid: 7OQwInzg
     lesson: 30_vectors/20_vector_example/README.md
     exercise: 30_vectors/20_vector_example/vector20.py
     display: true

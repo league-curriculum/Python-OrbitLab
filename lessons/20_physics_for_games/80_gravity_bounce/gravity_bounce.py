@@ -1,43 +1,66 @@
 """
-Gravity Bounce 
+Gravity Bounce with Paddle
 
-If we add X velocity, from side to side, the player will bounce around the
-screen. We will need to add a check to see if the player hits the left or right
-side of the screen.
+A simplified version without classes that includes a movable paddle.
+The ball bounces around the screen with gravity, and there's a paddle
+at the bottom that can be moved with arrow keys.
 
-uid: IaZqWmy2
-name: Gravity Bounce
 """
 
 import pygame
 import sys
+from dataclasses import dataclass
+
+@dataclass
+class Settings:
+    # Screen settings
+    SCREEN_WIDTH: int = 800
+    SCREEN_HEIGHT: int = 600
+    
+    # Colors
+    WHITE: tuple = (255, 255, 255)
+    RED: tuple = (255, 0, 0)
+    BLACK: tuple = (0, 0, 0)
+    
+    # Ball properties
+    BALL_RADIUS: int = 20
+    INITIAL_VELOCITY_X: int = 5
+    INITIAL_VELOCITY_Y: int = 0
+
+
+    # Paddle properties
+    PADDLE_WIDTH: int = 100
+    PADDLE_HEIGHT: int = 15
+    PADDLE_SPEED: int = 8
+    
+    # Physics constants
+    GRAVITY: float = 0.5
+    BOUNCE_DAMPING: float = 0.8
+    D_T: float = 1.0  # Time step for physics calculations
+
+
+# Create settings instance
+settings = Settings()
 
 # Initialize Pygame
 pygame.init()
 
 # Screen settings
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Gravity Bounce")
+screen = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
+pygame.display.set_caption("Gravity Bounce with Paddle")
 clock = pygame.time.Clock()
 
-# Colors
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-
 # Ball properties
-ball_x = SCREEN_WIDTH // 2
+ball_x = settings.SCREEN_WIDTH // 2
 ball_y = 50
-ball_radius = 20
-velocity_x = 5
-velocity_y = 0
+velocity_x = settings.INITIAL_VELOCITY_X
+velocity_y = settings.INITIAL_VELOCITY_Y
 
-# Physics constants
-GRAVITY = 0.5
-BOUNCE_DAMPING = 0.8
-D_T = 1.0  # Time step for physics calculations
+# Paddle properties
+paddle_x = settings.SCREEN_WIDTH // 2 - settings.PADDLE_WIDTH // 2
+paddle_y = settings.SCREEN_HEIGHT - settings.PADDLE_HEIGHT
 
+vm = 0
 # Main game loop
 running = True
 while running:
@@ -46,32 +69,54 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     
+    # Handle paddle movement
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and paddle_x > 0:
+        paddle_x -= settings.PADDLE_SPEED * settings.D_T
+
+    if keys[pygame.K_RIGHT] and paddle_x < settings.SCREEN_WIDTH - settings.PADDLE_WIDTH:
+        paddle_x += settings.PADDLE_SPEED * settings.D_T
+    
     # Apply gravity
-    velocity_y += GRAVITY * D_T
+    velocity_y += settings.GRAVITY * settings.D_T
     
     # Update ball position
-    ball_x += velocity_x * D_T
-    ball_y += velocity_y * D_T
+    ball_x += velocity_x * settings.D_T
+    ball_y += velocity_y * settings.D_T
     
     # Bounce off walls (left and right)
-    if ball_x - ball_radius <= 0 or ball_x + ball_radius >= SCREEN_WIDTH:
+    if ball_x - settings.BALL_RADIUS <= 0 or ball_x + settings.BALL_RADIUS >= settings.SCREEN_WIDTH:
         velocity_x = -velocity_x
-        ball_x = max(ball_radius, min(ball_x, SCREEN_WIDTH - ball_radius))
+        ball_x = max(settings.BALL_RADIUS, min(ball_x, settings.SCREEN_WIDTH - settings.BALL_RADIUS))
     
     # Bounce off floor
-    if ball_y + ball_radius >= SCREEN_HEIGHT:
-        ball_y = SCREEN_HEIGHT - ball_radius
-        velocity_y = -velocity_y * BOUNCE_DAMPING
+    if ball_y + settings.BALL_RADIUS >= settings.SCREEN_HEIGHT:
+        ball_y = settings.SCREEN_HEIGHT - settings.BALL_RADIUS
+        velocity_y = -velocity_y * settings.BOUNCE_DAMPING
         
         # Stop tiny bounces
         if abs(velocity_y) < 1:
             velocity_y = 0
     
+    # Check collision with paddle (detection only, no response)
+    if (ball_x + settings.BALL_RADIUS >= paddle_x and 
+        ball_x - settings.BALL_RADIUS <= paddle_x + settings.PADDLE_WIDTH and
+        ball_y + settings.BALL_RADIUS >= paddle_y and 
+        ball_y - settings.BALL_RADIUS <= paddle_y + settings.PADDLE_HEIGHT):
+
+        # Collision detected - no code executed yet
+        pass
+    
+
+
     # Clear screen
-    screen.fill(WHITE)
+    screen.fill(settings.WHITE)
     
     # Draw ball
-    pygame.draw.circle(screen, RED, (int(ball_x), int(ball_y)), ball_radius)
+    pygame.draw.circle(screen, settings.RED, (int(ball_x), int(ball_y)), settings.BALL_RADIUS)
+    
+    # Draw paddle
+    pygame.draw.rect(screen, settings.BLACK, (int(paddle_x), int(paddle_y), settings.PADDLE_WIDTH, settings.PADDLE_HEIGHT))
     
     # Update display
     pygame.display.flip()
